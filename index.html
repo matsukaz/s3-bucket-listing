@@ -1,17 +1,40 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf-5.5.2/jq-2.2.4/dt-1.10.13/cr-1.3.2/fh-3.1.2/se-1.2.0/datatables.min.css"/>
+
+<style type="text/css">
+  <!--
+  body {
+    margin: 10px;
+  }
+  div#navigation {
+    margin: 10px 0;
+  }
+  -->
+</style>
+<script type="text/javascript" src="https://cdn.datatables.net/v/zf-5.5.2/jq-2.2.4/dt-1.10.13/cr-1.3.2/fh-3.1.2/se-1.2.0/datatables.min.js"></script>
+<script>
+<!--
+  var S3BL_IGNORE_PATH = true;
+  var BUCKET_URL = 'http://BUCKET.s3.amazonaws.com';
+  // var BUCKET_NAME = 'BUCKET';
+  // var S3B_ROOT_DIR = 'SUBDIR_L1/SUBDIR_L2/';
+
+  $(document).ready(function() {
+      $('#data').DataTable({
+        "order": [[ 1, "desc" ]],
+        "stateSave": true,
+        "paging": false
+      });
+  });
+//-->
+</script>
+<script src="https://rawgit.com/matsukaz/s3-bucket-listing/gh-pages/list.js"></script>
 </head>
 <body>
-  <div id="navigation"></div>
-  <div id="listing"></div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script type="text/javascript">
-  // var S3BL_IGNORE_PATH = true;
-  // var BUCKET_NAME = 'BUCKET';
-  // var BUCKET_URL = 'https://BUCKET.s3.amazonaws.com';
-  // var S3B_ROOT_DIR = 'SUBDIR_L1/SUBDIR_L2/';
-</script>
-<script src="https://rawgit.com/rufuspollock/s3-bucket-listing/gh-pages/list.js"></script>
+<div id="navigation"></div>
+<div id="listing"></div>
 </body>
 </html>

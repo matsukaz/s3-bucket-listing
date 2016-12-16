@@ -150,10 +150,14 @@ function prepareTable(info) {
   var files = info.files.concat(info.directories)
     , prefix = info.prefix
     ;
-  var cols = [ 45, 30, 15 ];
   var content = [];
-  content.push(padRight('Last Modified', cols[1]) + '  ' + padRight('Size', cols[2]) + 'Key \n');
-  content.push(new Array(cols[0] + cols[1] + cols[2] + 4).join('-') + '\n');
+  content.push('<div><table id="data" class="table table-striped table-bordered">\n');
+  content.push('  <thead><tr>\n');
+  content.push('    <th>Key</th>\n');
+  content.push('    <th>Size</th>\n');
+  content.push('    <th>Last Modified</th>\n');
+  content.push('  </tr></thead>\n');
+  content.push('  <tbody>\n');
 
   // add the ../ at the start of the directory listing, unless when at the root dir already
   if (prefix && prefix !== S3B_ROOT_DIR) {
@@ -165,7 +169,7 @@ function prepareTable(info) {
         keyText: '../',
         href: S3BL_IGNORE_PATH ? '?prefix=' + up : '../'
       },
-      row = renderRow(item, cols);
+      row = renderRow(item);
     content.push(row + '\n');
   }
 
@@ -182,30 +186,23 @@ function prepareTable(info) {
       item.href = BUCKET_WEBSITE_URL + '/' + encodeURIComponent(item.Key);
       item.href = item.href.replace(/%2F/g, '/');
     }
-    var row = renderRow(item, cols);
+    var row = renderRow(item);
     content.push(row + '\n');
   });
+
+  content.push('  </tbody>\n');
+  content.push('</table></div>\n');
 
   return content.join('');
 }
 
-function renderRow(item, cols) {
-  var row = '';
-  row += padRight(item.LastModified, cols[1]) + '  ';
-  row += padRight(item.Size, cols[2]);
-  row += '<a href="' + item.href + '">' + item.keyText + '</a>';
+function renderRow(item) {
+  var row = '<tr>';
+  row += '<td><a href="' + item.href + '">' + item.keyText + '</a></td>';
+  row += '<td>' + item.Size + '</td>';
+  row += '<td>' + item.LastModified + '</td>';
+  row += '</tr>';
   return row;
-}
-
-function padRight(padString, length) {
-  var str = padString.slice(0, length-3);
-  if (padString.length > str.length) {
-    str += '...';
-  }
-  while (str.length < length) {
-    str = str + ' ';
-  }
-  return str;
 }
 
 function bytesToHumanReadable(sizeInBytes) {
