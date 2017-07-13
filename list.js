@@ -53,12 +53,12 @@ function getS3Data(marker, html) {
 }
 
 function buildNavigation(info) {
-  var root = '<a href="?prefix=">' + BUCKET_WEBSITE_URL + '</a> / '
+  var root = '<a href="' + BUCKET_WEBSITE_URL + '">' + BUCKET_WEBSITE_URL + '</a> / '
   if (info.prefix) {
     var processedPathSegments = ''
     var content = $.map(info.prefix.split('/'), function(pathSegment){
       processedPathSegments = processedPathSegments + encodeURIComponent(pathSegment) + '/'
-      return '<a href="?prefix=' + processedPathSegments + '">' + pathSegment + '</a>'
+      return '<a href="' + BUCKET_WEBSITE_URL + '/' + processedPathSegments + '">' + pathSegment + '</a>'
     });
     $('#navigation').html(root + content.join(' / '))
   } else {
